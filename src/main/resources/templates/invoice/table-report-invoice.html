@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'"
+	xmlns:brewer="http://brewer.algaworks.com">
+
+<head>
+<title>Pesquisa de grades</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-10">
+						<h3>Relatorio Pagamento</h3>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="aw-page-header-controls">
+							<a class="btn  btn-default" th:href="@{/invoice/new}"> <i
+								class="glyphicon  glyphicon-plus-sign"></i> <span
+								class="hidden-xs  hidden-sm">Voltar</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+
+
+
+			<button type="submit" class="btn  btn-primary">Pesquisar</button>
+<br><br>
+<br>
+<br>
+
+			<div class="table-responsive  bw-tabela-simples">
+				<table class="table  table-hover">
+					<thead>
+						<tr>
+							<th >Code</th>
+							<th >Nome</th>
+							<th >Apelido</th>
+							<th >Genero</th>
+							<th >Turma</th>
+							<th >Valor Recebido</th>
+							<th >%Multa%</th>
+							<th >Valor/Multa</th>
+
+							<th>Total Pago</th>
+							<th>Accoes</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="invoice : ${getInvoices}">
+
+							<td th:text="${invoice.matricula.student.ownid}"></td>
+							<td th:text="${invoice.matricula.student.name}"></td>
+							<td th:text="${invoice.matricula.student.surname}"></td>
+							<td th:text="${invoice.matricula.student.gender}"></td>
+							<td th:text="${invoice.matricula.grade.description}"></td>
+
+							<td style="color: red" th:text="| ${invoice.value} MT|"></td>
+							<td style="color: blue" th:text="| ${invoice.mulct} %|"></td>
+							<td th:text="${invoice.mulctTotal}"></td>
+
+							<td style="color: red" th:text="| ${invoice.total} MT|"></td>
+
+							<td ><button class="btn btn-default">Imprimir</button></td>
+						</tr>
+						<tr th:if="${#lists.isEmpty(getInvoices)}">
+							<td colspan="7">Nenhuma grade encontrada</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+	</section>
+</body>
+</html>

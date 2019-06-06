@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'">
+
+<head>
+<title>Inserir Professor</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+
+		<div class="page-header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-10">
+						<h3>Inserir Professor</h3>
+					</div>
+
+					<!-- 				<div class="col-sm-2"> -->
+					<!-- 					<div class="aw-page-header-controls"> -->
+					<!-- 						<a class="btn  btn-default" th:href="@{/allGrades}"> -->
+					<!-- 							<i class="glyphicon  glyphicon-plus-sign"></i> <span class="hidden-xs  hidden-sm">Pesquisar</span> -->
+					<!-- 						</a> -->
+					<!-- 					</div> -->
+					<!-- 				</div> -->
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+
+			<th:block th:include="fragments/MensagemSucesso"></th:block>
+
+			<form id="form-services" method="POST" th:object="${teacher}"
+				class="form-vertical  js-form-loading">
+				<th:block th:include="fragments/MensagensErroValidacao"></th:block>
+
+				<div class="row">
+					
+					<div class="col-sm-2  form-group">
+						<label for="name">Nome: </label> <input id="name" name="name"
+							class="form-control" />
+					</div>
+
+
+
+					<div class="row">
+
+
+						<div class="col-sm-2  form-group">
+
+<!-- 							<label for="subject">Selecione o Disciplina </label> <select -->
+<!-- 								id="subject" class="form-control" th:field="*{subject}"> -->
+<!-- 								<option value=""></option> -->
+<!-- 								<option th:each="sub : ${getSubjects}" th:value="${sub.id}" -->
+<!-- 									th:text="${sub.description}"></option> -->
+<!-- 							</select> -->
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<button class="btn  btn-primary" type="submit">Salvar</button>
+				</div>
+			</form>
+					<div th:replace="estilo/CadastroRapidoEstilo :: modal"></div>
+			
+		</div>
+
+	</section>
+
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/layout/javascripts/vendors/jquery/jquery.js}"></script>
+		<script th:src="@{/javascripts/vendors/jquery.maskMoney.min.js}"></script>
+	</th:block>
+</body>
+</html>

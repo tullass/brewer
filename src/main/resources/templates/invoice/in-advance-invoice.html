@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+<title>Pagamento Adiantado</title>
+
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+<!-- 				<div class="col-sm-10"> -->
+<!-- 					<h4></h4> -->
+<!-- 				</div> -->
+
+<!-- 				<div class="col-sm-2"> -->
+<!-- 					<div class="aw-page-header-controls"> -->
+<!-- 						<a class="btn  btn-default" th:href="@{/allGrades}"> <i -->
+<!-- 							class="glyphicon  glyphicon-plus-sign"></i> <span -->
+<!-- 							class="hidden-xs  hidden-sm">Pesquisar</span> -->
+<!-- 						</a> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+
+		<th:block th:include="fragments/MensagemSucesso"></th:block>
+
+		<form id="form-services" method="POST" th:object="${invoice}">
+
+			<h3 style="color: red">Tesoureiro: Pagamento Adiantado</h3>
+			<div style="text-align: right">
+				<label style="color: red">Hora: </label><b id="digital-clock"></b><br>
+				<label style="color: red">Data: </label> <b id="demo"></b><br>
+			</div><br>
+			
+
+
+			<!-- <input type="text" name="txt1" class="form-control"  -->
+			<!--                 ng-model="fatura.tipo.id"  -->
+
+			<!--                 ui-mask="99 99 99 999"> -->
+			<div>
+				<div class="row">
+					<div class="form-group  col-sm-3">
+						<label for="service">Servico</label> <select id="service"
+							th:field="*{service.id}" class="form-control">
+							<option value="">Selecione o Servico</option>
+							<option th:each="service : ${getServices}"
+								th:value="${service.id}" th:text="${service.description}"></option>
+						</select>
+					</div>
+
+					<div class="col-sm-3  form-group">
+						<label for="sabor">Ano</label> <select id="sabor"
+							class="form-control" th:field="*{year}">
+							<option value="">Selecione o Ano</option>
+							<option th:each="year : ${getYears}" th:value="${year}"
+								th:text="${year.description}"></option>
+						</select>
+
+					</div>
+					<br>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-3">
+						<label for="assunt">Codigo.: </label> <input type="text"
+							id="ownid" class="form-control" readonly="readonly" />
+					</div>
+					<div class="form-group col-md-3">
+						<label for="assunt">Aluno.: </label> <input type="text" id="name"
+							class="form-control" readonly="readonly" />
+					</div>
+					<div class="form-group col-md-3">
+						<label for="assunt">Apelido.: </label> <input type="text"
+							id="surname" class="form-control" readonly="readonly" />
+					</div>
+
+					<input type="hidden" id="id" th:field="*{matricula.id}">
+					<div class="form-group  col-sm-3  bw-required">
+						<label for="classRom" class="control-label">Turma</label>
+						<div class="input-group">
+							<input type="text" id="classRom" readonly="readonly"
+								class="form-control" /> <span class="input-group-btn">
+								<button class="btn  btn-default  js-tooltip" type="button"
+									title="Pesquisa avancada" data-toggle="modal"
+									data-target="#searchStudentInvoiceModal">
+									<i class="glyphicon  glyphicon-search"></i>
+								</button>
+							</span>
+						</div>
+					</div>
+
+				</div>
+
+				<br> <br> <br>
+
+				<div class="row">
+
+					<div class="col-sm-2  form-group">
+						<label for="bank" class="label label-danger">Conta</label> <select
+							id="bank" class="form-control" th:field="*{bank}">
+							<option value="">Selecione o Conta</option>
+							<option th:each="bank : ${getBanks}" th:value="${bank}"
+								th:text="${bank.description}"></option>
+						</select>
+
+					</div>
+
+					<div class="col-sm-2  form-group">
+						<label for="month">Mes</label> <select id="month"
+							class="form-control" th:field="*{montha}">
+							<option value="">Selecione o Mes</option>
+							<option th:each="montha : ${getMonths}" th:value="${montha}"
+								th:text="${montha.description}"></option>
+						</select>
+
+					</div>
+
+
+
+					<div class="form-group col-md-2">
+						<label class="label label-primary" for="mulct">Multa</label> <input
+							th:field="*{mulct}" id="mulct" class="form-control js-decimal" />
+
+					</div>
+
+					<div class="form-group col-md-2">
+						<label> A Receber<input type="text" class="form-control"
+							id="price" th:field="*{value}" style="color: red"
+							readonly="readonly"></label>
+					</div>
+					<div class="form-group col-md-4">
+
+						<label for="transation">Numero da Transacao*<input
+							th:field="*{transation}" type="text" id="transation"
+							readonly="readonly" class="form-control"></label>
+					</div>
+
+				</div>
+
+				<br> <br> <br>
+
+				<div class="row">
+					<div class="form-group col-md-2">
+						Valor Multa<input type="text" class="form-control" id="mulctTotal"
+							th:field="*{mulctTotal}" readonly="readonly">
+					</div>
+					<div class="form-group col-md-2">
+						Valor Total: <input type="text" id="total" class="form-control"
+							th:field="*{total}" readonly="readonly">
+					</div>
+					<label class="label label-danger" id="total"></label>
+				</div>
+
+
+				<br> <br>
+				<button class="btn btn-danger" id="btn-save">Gravar</button>
+
+				<br>
+
+			</div>
+		</form>
+		<div th:replace="student/seach-student-invoice-in-advance :: modal"></div>
+
+	</div>
+	<br>
+
+
+
+
+
+</section>
+
+<th:block layout:fragment="javascript-extra">
+	<script th:src="@{/javascripts/academic/search-student-invoice.js}"></script>
+	<script th:src="@{/javascripts/academic/date-invoice.js}"></script>
+
+</th:block>
+
+</body>
+</html>
